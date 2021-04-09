@@ -1,0 +1,37 @@
+Delcesar\VisaBundle\Entity\Usuario:
+  type: entity
+  table: usuario
+  id:
+    idusuario:
+      type: integer
+      nullable: false
+      unsigned: false
+      id: true
+      column: idUsuario
+      generator:
+        strategy: IDENTITY
+  fields:
+    username:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+    password:
+      type: string
+      nullable: false
+      length: 500
+      fixed: false
+    nombre:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+    email:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+    enabled:
+      type: boolean
+      nullable: false
+  lifecycleCallbacks: {}

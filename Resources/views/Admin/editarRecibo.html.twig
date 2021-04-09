@@ -1,0 +1,208 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <h5 class="h3 semibold m-t-0">Editar Recibo</h5>
+                <div class="m-t-2">
+                    <div class="card">
+                        <div class="card-content p-y-2">
+                            <form id="form-datos-recibo" action="#">
+                                <h6 class="blue-text text-darken-2 semibold m-t-0 m-l-1">DATOS DEL CLIENTE</h6>
+                                <input type="hidden" id="idrecibo" name="idrecibo" value="{{recibo.idrecibo}}">
+                                <div class="row m-t-1">
+                                    <div class="col u6">
+                                        <div class="input-field">
+                                            <input type="text" name="nombre" id="nombre" value="{{recibo.idcliente.nombre}}">
+                                            <label for="nombre" class="">Nombre</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u6">
+                                        <div class="input-field">
+                                            <input type="email" id="email" name="email" class="validate" value="{{recibo.idcliente.email}}">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-t-1">
+                                    <div class="col u6">
+                                        <div class="input-field">
+                                            <select name="nacionalidad" id="nacionalidad">
+                                                {% for pais in paises %}
+                                                    <option value="{{pais.idpais}}" {{pais == recibo.idcliente.nacionalidad?"selected"}}>{{pais.nombre}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="nombre">Nacionalidad</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u6">
+                                        <div class="input-field">
+                                            <select name="idioma" id="idioma">
+                                                <option value="es" {{recibo.idcliente.idioma=="es"?"selected"}}>Español</option>
+                                                <option value="en" {{recibo.idcliente.idioma=="en"?"selected"}}>English</option>
+                                            </select>
+                                            <label for="nombre">Idioma</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-t-1">
+                                    <div class="col u3">
+                                        <div class="input-field">
+                                            <input type="text" name="monto" id="monto" class=" center-align currencyInput" value="{{recibo.monto}}">
+                                            <label for="monto" class="">Monto Neto (US$)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u3">
+                                        <div class="input-field">
+                                            <input type="text" name="fecha-limite" id="fecha-limite" class="center-align datepicker" data-value="{{recibo.fechalimitepago|date('Y/m/d')}}">
+                                            <label for="fecha-limite" class="">Fecha Límite</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="jsonservicios" name="jsonservicios" value="">
+                            </form>
+                        </div>
+                        <div class="card-content p-y-2">
+                            <h6 class="blue-text text-darken-2 semibold m-t-0 m-l-1">SERVICIOS</h6>
+                            <div class="row m-t-1">
+                                <div class="col xl5 u12">
+                                    <form action="#" id="form-add-servicio">
+                                        <div class="input-field">
+                                            <input type="text" name="nombre-servicio" id="nombre-servicio">
+                                            <label for="nombre-servicio" class="">Nombre</label>
+                                        </div>
+                                        <div class="right-align">
+                                            <a href="javascript:void(0)" id="add-servicio" class="btn btn-flat amber darken-2" onclick="servicios.agregarServicio()" data-indexservicio="0">Añadir servicio</a>
+                                            <input type="submit" class="defaultSubmit">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col xl6 u12 offset-xl1">
+                                    <table class="striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Lista de Servicios</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="lista-servicios">
+                                            {% for servicio in servicios %}
+                                                <tr>
+                                                    <td>{{servicio.nombre}}</td>
+                                                    <td class="right-align"><a href="javascript:void(0)" class="btn btn-flat btn-small red accent-2" onclick="servicios.quitarServicio({{loop.index0}})"><i class="mdi-close"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content m-t-3 p-x-2 p-y-2 bordered-top right-align">
+                            <a href="javascript:void(0)" onclick="servicios.actualizarRecibo()" class="btn btn-flat btn-large blue"><i class="mdi-check"></i> Guardar cambios</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#form-add-servicio').submit(function () {
+                servicios.agregarServicio();
+                return false;
+            });
+        })
+        var servicios = {
+            lista: new Object(),
+            agregarServicio: function () {
+                var servicio = new Object();
+                index = $('#add-servicio').data("indexservicio");
+                if ($('#nombre-servicio').val() != "") {
+                    servicio["nombre"] = $('#nombre-servicio').val();
+                    this.lista[index] = servicio;
+                    this.mostrarServicios();
+                    Materialize.toast('Servicio agregado', 1000);
+                    //
+                    $('#add-servicio').data("indexservicio", index + 1);
+                    $('#form-add-servicio')[0].reset();
+                } else {
+                    Materialize.toast('Completa el nombre del servicio', 1000);
+                    $('#nombre-servicio').focus();
+                }
+            },
+            cargarServicio: function (nombre) {
+                var servicio = new Object();
+                index = $('#add-servicio').data("indexservicio");
+                servicio["nombre"] = nombre;
+                this.lista[index] = servicio;
+                //
+                $('#add-servicio').data("indexservicio", index + 1);
+            },
+            quitarServicio: function (idservicio) {
+                delete this.lista[idservicio];
+                this.mostrarServicios();
+                Materialize.toast('Servicio quitado', 1000);
+            },
+            mostrarServicios: function () {
+                $('#lista-servicios').html('');
+                if (Object.keys(this.lista).length > 0) {
+                    var contador = 1;
+                    for (var idservicio in this.lista) {
+                        $('#lista-servicios').append('<tr><td>' + this.lista[idservicio]["nombre"] + '</td><td class="right-align"><a href="javascript:void(0)" class="btn btn-flat btn-small red accent-2" onclick="servicios.quitarServicio(' + idservicio + ')"><i class="mdi-close"></i></a></td></tr>');
+                        contador++;
+                    }
+                } else {
+                    $('#lista-servicios').append('<tr><td colspan="3">No hay servicios registrados</td></tr>');
+                }
+            },
+            actualizarRecibo: function () {
+                if (Object.keys(this.lista).length > 0) {
+                    $('#jsonservicios').val(JSON.stringify(this.lista));
+                    var url = Routing.generate('delcesar_visa_admin_actualizar_recibo');
+                    var data = $('#form-datos-recibo').serializeObject();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        success: function (datos) {
+                            if (typeof datos !== "undefined") {
+                                if (datos.sesion) {
+                                    if (datos.valido) {
+                                        var urlinicio = Routing.generate('delcesar_visa_admin_homepage');
+                                        location.replace(urlinicio);
+                                    }
+                                    // error en consulta
+                                    else {
+                                        Materialize.toast(datos.error, 5000);
+                                        // resaltar campos invalidos
+                                        if (typeof datos.invalido !== 'undefined') {
+                                            for (campo in datos.invalido) {
+                                                $('#' + datos.invalido[campo]).addClass('invalid');
+                                            }
+                                            $('#' + datos.invalido[0]).focus();
+                                        }
+                                    }
+                                } else {
+                                    location.replace(datos.redirect);
+                                }
+                            }
+                            // error en respuesta
+                            else {
+                                Materialize.toast("No se obtuvo ninguna respuesta", 5000);
+                            }
+                        }
+                    });
+                } else {
+                    Materialize.toast('Agrega servicios a la lista', 3000);
+                }
+            }
+        };
+        // cargar los servicios del recibo en la variable servicios
+        {% for servicio in servicios %}
+            servicios.cargarServicio('{{servicio.nombre}}');
+        {% endfor %}
+
+    </script>
+{% endblock %}

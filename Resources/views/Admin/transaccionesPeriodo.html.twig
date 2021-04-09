@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-content">
+        <h6 class="m-t-1"><span class="text-muted">Transacciones periodo:</span> <strong>{{desde}} <i class="mdi-arrow-right"></i> {{hasta}}</strong></h6>
+        <table class="striped m-t-2">
+            <thead>
+                <tr>
+                    <th class="center-align">Token Transacción</th>
+                    <th class="center-align">Código Pago</th>
+                    <th class="center-align">Éxito</th>
+                    <th>Orden</th>
+                    <th>PAN</th>
+                    <th>Importe (US$)</th>
+                    <th>Fecha Transacción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trans in transacciones %}
+                    <tr>
+                        <td class="center-align"><a href="{{path('delcesar_visa_admin_detalles_transaccion',{'idtransaccion':trans.idtransaccion})}}" class="bold">{{trans.transacciontoken}}</a></td>
+                        <td class="center-align"><a href="{{path('delcesar_visa_admin_detalles_recibo',{'idrecibo':trans.sessiontoken.idrecibo.idrecibo})}}">{{trans.sessiontoken.idrecibo.codigo}}</a></td>
+                        <td class="center-align">
+                            {% if trans.exito==1 %}
+                                <div class="chip green accent-4 white-text">
+                                    Éxito
+                                </div>
+                            {% else %}
+                                <div class="chip red accent-2 white-text">
+                                    Fracaso
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>{{trans.numorden}}</td>
+                        <td>{{trans.pan}}</td>
+                        <td>{{trans.impautorizado}}</td>
+                        <td>{{trans.fechahoratx|date('d M Y H:i:s')}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

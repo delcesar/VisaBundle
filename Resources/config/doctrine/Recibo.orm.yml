@@ -1,0 +1,74 @@
+Delcesar\VisaBundle\Entity\Recibo:
+  type: entity
+  table: recibo
+  indexes:
+    recibo_idcliente_idx:
+      columns:
+        - idCliente
+    recibo_idusuarioregistro_idx:
+      columns:
+        - idUsuarioRegistro
+  id:
+    idrecibo:
+      type: integer
+      nullable: false
+      unsigned: false
+      id: true
+      column: idRecibo
+      generator:
+        strategy: IDENTITY
+  fields:
+    codigo:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+    monto:
+      type: decimal
+      nullable: false
+      precision: 10
+      scale: 2
+    fechalimitepago:
+      type: datetime
+      nullable: false
+      column: fechaLimitePago
+    fecharegistro:
+      type: datetime
+      nullable: false
+      column: fechaRegistro
+    estadoregistro:
+      type: smallint
+      nullable: false
+      unsigned: false
+      comment: "0: cancelado\n1: vigente"
+      column: estadoRegistro
+    estadopago:
+      type: smallint
+      nullable: false
+      unsigned: false
+      comment: "0: sin pago\n1: pagado"
+      column: estadoPago
+    fechapago:
+      type: datetime
+      nullable: true
+      column: fechaPago
+  manyToOne:
+    idcliente:
+      targetEntity: Cliente
+      cascade: {}
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        idCliente:
+          referencedColumnName: idCliente
+      orphanRemoval: false
+    idusuarioregistro:
+      targetEntity: Usuario
+      cascade: {}
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        idUsuarioRegistro:
+          referencedColumnName: idUsuario
+      orphanRemoval: false
+  lifecycleCallbacks: {}

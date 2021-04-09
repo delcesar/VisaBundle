@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta charset = "utf-8" />
+        <title>Visa</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700' rel='stylesheet' type='text/css'/>
+        <link href="{{ asset('/bundles/delcesarvisa/css/materialize.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/delcesarpaginaen/css/materialdesignicons.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/delcesarvisa/css/dropzone.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/delcesarvisa/css/mbox.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/delcesarvisa/css/dataTables.bootstrap.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/bundles/delcesarvisa/css/delcesar.css') }}" type="text/css" rel="stylesheet" />
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block header %}
+            {{ include('DelcesarVisaBundle:Base:baseHeader.html.twig') }}
+        {% endblock %}
+        {# panel principal #}
+        <main>
+            {% block body %}
+                {# principal #}
+            {% endblock %}
+            <div class="modal-overlay" id="modals-container"></div>
+        </main>
+        {# pie de página #}
+        <footer class="page-footer p-y-0 m-t-0">
+
+            {# alertas del sistema #}
+            <section id="contenedor-alertas-hoja">
+                <div class="container">
+                    <div id="alertas-hoja" class="left w100 a-fijo">
+                        {% for flashMessage in app.session.flashbag.get('alerta-sistema') %}
+                            <div class="alert alert-info alert-block">
+                                <i class="close-alert mdi-close"></i>
+                                <div class="alertWrapper">{{flashMessage}}</div>
+                            </div>
+                        {% endfor %}
+                        {% for flashMessage in app.session.flashbag.get('error-sistema') %}
+                            <div class="alert alert-danger alert-block">
+                                <i class="close-alert mdi-close"></i>
+                                <div class="alertWrapper">{{flashMessage}}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {# ajax - loader #}
+            <div class="ajax-loader z-depth-5" id="ajax-loader-page">
+                <div class="loader">
+                    <svg class="circular">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                    </svg>
+                </div>
+            </div>
+        </footer>
+        {# Script JS #}
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/materialize.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/dataTables.bootstrap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/jquery.autonumeric.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/mbox.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/delcesarvisa/js/delcesar.js') }}"></script>
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>

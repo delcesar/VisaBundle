@@ -1,0 +1,109 @@
+# LOGIN
+delcesar_visa_login:
+  path: /login
+  defaults: { _controller: PirwaVisaBundle:Login:index }
+
+delcesar_visa_validar_login:
+  path: /login/validar
+  defaults: { _controller: PirwaVisaBundle:Login:validarCredenciales }
+
+delcesar_visa_logout:
+  path: /logout
+  defaults: { _controller: PirwaVisaBundle:Login:logout }
+
+# ADMIN
+delcesar_visa_admin_homepage:
+  path: /admin/
+  defaults: { _controller: PirwaVisaBundle:Admin:index }
+  options:
+    expose: true
+
+delcesar_visa_admin_detalles_recibo:
+  path: /admin/detalles-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:detallesRecibo }
+  options:
+    expose: true
+
+delcesar_visa_admin_generar_codigo:
+  path: /admin/generar-codigo
+  defaults: { _controller: PirwaVisaBundle:Admin:generarCodigo }
+
+delcesar_visa_admin_crear_codigo:
+  path: /admin/crear-codigo
+  defaults: { _controller: PirwaVisaBundle:Admin:crearCodigo }
+  options:
+    expose: true
+
+delcesar_visa_admin_editar_recibo:
+  path: /admin/editar-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:editarRecibo }
+
+delcesar_visa_admin_actualizar_recibo:
+  path: /admin/actualizar-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:actualizarRecibo }
+  options:
+    expose: true
+
+delcesar_visa_admin_cancelar_recibo:
+  path: /admin/cancelar-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:cancelarRecibo }
+  options:
+    expose: true
+
+delcesar_visa_admin_buscar_recibo:
+  path: /admin/buscar-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:buscarRecibo }
+
+delcesar_visa_admin_resultados_busqueda_recibo:
+  path: /admin/resultados-busqueda-recibo
+  defaults: { _controller: PirwaVisaBundle:Admin:resultadosBusquedaRecibo }
+
+delcesar_visa_admin_buscar_transacciones:
+  path: /admin/buscar-transacciones
+  defaults: { _controller: PirwaVisaBundle:Admin:buscarTransacciones }
+
+delcesar_visa_admin_resultados_transacciones_periodo:
+  path: /admin/resultados-transacciones-periodo
+  defaults:
+    { _controller: PirwaVisaBundle:Admin:resultadosTransaccionesPeriodo }
+
+delcesar_visa_admin_detalles_transaccion:
+  path: /admin/detalles-transaccion
+  defaults: { _controller: PirwaVisaBundle:Admin:detallesTransaccion }
+  options:
+    expose: true
+
+# CLIENTE
+# english
+delcesar_visa_cliente_payments_index:
+  path: /payments/
+  defaults: { _controller: PirwaVisaBundle:Cliente:index }
+
+delcesar_visa_cliente_payments_response:
+  path: /payments/response
+  defaults: { _controller: PirwaVisaBundle:Cliente:response }
+
+# spanish
+delcesar_visa_cliente_pagos_inicio:
+  path: /pagos/
+  defaults: { _controller: PirwaVisaBundle:Cliente:inicio }
+
+delcesar_visa_cliente_pagos_preview_recibo:
+  path: /pagos/recibo
+  defaults: { _controller: PirwaVisaBundle:Cliente:previewRecibo }
+
+delcesar_visa_cliente_pagos_confirmar_pagar:
+  path: /pagos/confirmar-pagar
+  defaults: { _controller: PirwaVisaBundle:Cliente:confirmarPagar }
+
+delcesar_visa_cliente_pagos_respuesta_autorizacion:
+  path: /pagos/respuesta-autorizacion
+  defaults: { _controller: PirwaVisaBundle:Cliente:respuestaAutorizacion }
+
+delcesar_visa_cliente_pagos_terminos_y_condiciones:
+  path: /pagos/terminos-y-condiciones
+  defaults: { _controller: PirwaVisaBundle:Cliente:terminosCondiciones }
+
+delcesar_visa_cliente_pagos_politicas_cancelacion:
+  path: /pagos/politicas-cancelacion
+  defaults: { _controller: PirwaVisaBundle:Cliente:politicasCancelacion }

@@ -1,0 +1,51 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <h5 class="h3 semibold m-t-0">Buscar Transacciones</h5>
+                <div class="m-t-2">
+                    <div class="card">
+                        <div class="card-content">
+                            <form action="#" id="form-buscar">
+                                <div class="row m-t-1">
+                                    <div class="col u4">
+                                        <div class="input-field">
+                                            <input type="text" name="desde" id="desde" class="center-align datepicker" data-value="{{"now"|date_modify('-7 days')|date('Y/m/d')}}">
+                                            <label for="desde" class="">Desde</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u4">
+                                        <div class="input-field">
+                                            <input type="text" name="hasta" id="hasta" class="center-align datepicker" data-value="{{"now"|date('Y/m/d')}}">
+                                            <label for="hasta" class="">Hasta</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u4">
+                                        <div class="input-field margintop10">
+                                            <a href="javascript:void(0)" onclick="SubmitAjax('form-buscar', '{{path('delcesar_visa_admin_resultados_transacciones_periodo')}}', 3, 'resultados-busqueda')" class="btn btn-flat light-blue">Buscar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" id="buscar" class="defaultSubmit" value="Buscar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-t-2" id="resultados-busqueda">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#form-buscar').submit(function () {
+                SubmitAjax('form-buscar', '{{path('delcesar_visa_admin_resultados_transacciones_periodo')}}', 3, 'resultados-busqueda');
+                return false;
+            })
+        });
+    </script>
+{% endblock %}

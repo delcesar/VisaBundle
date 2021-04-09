@@ -1,0 +1,42 @@
+Delcesar\VisaBundle\Entity\Serviciorecibo:
+  type: entity
+  table: serviciorecibo
+  indexes:
+    serviciorecibo_idrecibo_idx:
+      columns:
+        - idRecibo
+  id:
+    idserviciorecibo:
+      type: integer
+      nullable: false
+      unsigned: false
+      id: true
+      column: idServicioRecibo
+      generator:
+        strategy: IDENTITY
+  fields:
+    nombre:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+    url:
+      type: string
+      nullable: true
+      length: 500
+      fixed: false
+    fechainicio:
+      type: date
+      nullable: true
+      column: fechaInicio
+  manyToOne:
+    idrecibo:
+      targetEntity: Recibo
+      cascade: {}
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        idRecibo:
+          referencedColumnName: idRecibo
+      orphanRemoval: false
+  lifecycleCallbacks: {}

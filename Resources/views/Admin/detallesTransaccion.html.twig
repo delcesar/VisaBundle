@@ -1,0 +1,95 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <div class="">
+                    <h5 class="h3 m-t-0">
+                        Recibo de Pago - <strong>{{transaccion.transacciontoken}}</strong>
+                    </h5>
+                </div>
+                <div class="m-t-2">
+                    <div class="">
+                        <div class="card">
+                            <div class="card-content p-x-2">
+                                <h6 class="blue-text text-darken-2 semibold m-t-1 m-l-1">DETALLES DE LA TRANSACCIÓN</h6>
+                                <div class="m-t-2">
+                                    <table class="striped">
+                                        <tbody>
+                                            <tr>
+                                                <td class="bold text-muted" style="width:350px">Token Transacción</td>
+                                                <td>{{transaccion.transacciontoken}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Código de Pago</td>
+                                                <td><a href="{{path('delcesar_visa_admin_detalles_recibo',{'idrecibo':transaccion.sessiontoken.idrecibo.idrecibo})}}" class="bold">{{transaccion.sessiontoken.idrecibo.codigo}}</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Éxito</td>
+                                                <td>
+                                                    {% if transaccion.exito==1 %}
+                                                        <div class="chip green accent-4 white-text">
+                                                            Éxito
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="chip red accent-2 white-text">
+                                                            Fracaso
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Código Error</td>
+                                                <td>{{transaccion.errorcode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Mensaje del error</td>
+                                                <td>{{transaccion.errormessage}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Respuesta</td>
+                                                <td>{{transaccion.respuesta}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Nro. Orden</td>
+                                                <td>{{transaccion.numorden}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">PAN</td>
+                                                <td>{{transaccion.pan}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Origen Tarjeta</td>
+                                                <td>{{transaccion.oritarjeta}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Emisor Tarjeta</td>
+                                                <td>{{transaccion.nomemisor}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Código Acción</td>
+                                                <td>{{transaccion.codaccion}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Descripción Código Acción</td>
+                                                <td>{{transaccion.dsccodaccion}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Código Autorización</td>
+                                                <td>{{transaccion.codautoriza}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold text-muted">Fecha Transacción</td>
+                                                <td>{{transaccion.fechahoratx|date('d M Y H:i:s')}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

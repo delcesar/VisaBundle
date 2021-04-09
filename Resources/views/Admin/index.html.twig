@@ -1,0 +1,81 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <h5 class="h3 m-t-0">Últimos recibos generados</h5>
+                <div class="m-t-2">
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Código</th>
+                                <th>Monto</th>
+                                <th>Fecha Límite</th>
+                                <th>Servicios</th>
+                                <th class="text-center">Estado Pago</th>
+                                <th>Fecha de Pago</th>
+                                <th class="center-align">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for recibo in recibos %}
+                                <tr style="text-small">
+                                    <td class="verticalmiddle">{{recibo.idcliente.nombre}}</td>
+                                    <td class="verticalmiddle bold">
+                                        <a href="{{path('delcesar_visa_admin_detalles_recibo',{'idrecibo':recibo.idrecibo})}}">{{recibo.codigo}}</a>
+                                    </td>
+                                    <td class="verticalmiddle">
+                                        {{recibo.monto|number_format(2)}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{recibo.fechalimitepago|date('d M Y 23:59')}}
+                                    </td>
+                                    <td>
+                                        {% for servicio in servicios[recibo.idrecibo] %}
+                                            {{servicio.nombre}}
+                                            {% if not loop.last %}
+                                                ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% if recibo.estadopago==1 %}
+                                            <div class="chip green accent-4 white-text">
+                                                Pagado
+                                            </div>
+                                        {% else %}
+                                            <div class="chip">
+                                                Pendiente
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if recibo.fechapago is not null %}
+                                            {{recibo.fechapago|date('d M Y H:i','America/Lima')}}
+                                        {% endif %}
+                                    </td>
+                                    <td class="center-align" style="width: 120px">
+                                        {% if recibo.estadoregistro==1 and recibo.estadopago==0 %}
+                                            <a href="{{path('delcesar_visa_admin_editar_recibo',{'idrecibo':recibo.idrecibo})}}" class="btn btn-flat light-blue lighten-2">
+                                                <i class="mdi-pencil"></i>
+                                            </a>
+                                            <a href="#" onclick="confirmActionAjax('{{path('delcesar_visa_admin_cancelar_recibo',{'idrecibo':recibo.idrecibo})}}', '¿Seguro que quieres cancelar este recibo?', 'cancelar', 'confirmar', 1, '{{path('delcesar_visa_admin_detalles_recibo',{'idrecibo':recibo.idrecibo})}}')" class="btn btn-flat red accent-2">
+                                                <i class="mdi-close"></i>
+                                            </a>
+                                        {% elseif recibo.estadoregistro==0 %}
+                                            <span class="red-text text-accent-2"><i class="mdi-close-circle"></i> cancelado</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+
+{% endblock %}

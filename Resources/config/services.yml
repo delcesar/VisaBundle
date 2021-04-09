@@ -1,0 +1,8 @@
+parameters:
+  guardianvisa.class: Delcesar\VisaBundle\Services\guardianvisa
+
+services:
+  guardianvisa:
+    class: %guardianvisa.class%
+    arguments:
+      session: "@session"

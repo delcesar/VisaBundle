@@ -1,0 +1,116 @@
+Delcesar\VisaBundle\Entity\Transaccion:
+  type: entity
+  table: transaccion
+  indexes:
+    transaccion_sessiontoken_idx:
+      columns:
+        - sessionToken
+  id:
+    idtransaccion:
+      type: integer
+      nullable: false
+      unsigned: false
+      id: true
+      column: idTransaccion
+      generator:
+        strategy: IDENTITY
+  fields:
+    transacciontoken:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+      column: transaccionToken
+    exito:
+      type: boolean
+      nullable: false
+      comment: "0: rechazado\n1: exitoso"
+    errorcode:
+      type: string
+      nullable: false
+      length: 3
+      fixed: false
+      column: errorCode
+    errormessage:
+      type: string
+      nullable: true
+      length: 500
+      fixed: false
+      column: errorMessage
+    respuesta:
+      type: integer
+      nullable: false
+      unsigned: false
+      comment: "Respuesta del API sobre la transacción\n1: valido\nn: otro nro. Declinado"
+    idunico:
+      type: string
+      nullable: true
+      length: 20
+      fixed: false
+      column: idUnico
+    numorden:
+      type: integer
+      nullable: true
+      unsigned: false
+      column: numOrden
+    pan:
+      type: string
+      nullable: true
+      length: 20
+      fixed: false
+    oritarjeta:
+      type: string
+      nullable: true
+      length: 2
+      fixed: false
+      column: oriTarjeta
+    nomemisor:
+      type: string
+      nullable: true
+      length: 100
+      fixed: false
+      column: nomEmisor
+    codaccion:
+      type: string
+      nullable: true
+      length: 3
+      fixed: false
+      column: codAccion
+    dsccodaccion:
+      type: string
+      nullable: true
+      length: 100
+      fixed: false
+      column: dscCodAccion
+    impautorizado:
+      type: decimal
+      nullable: true
+      precision: 10
+      scale: 2
+      column: impAutorizado
+    codautoriza:
+      type: string
+      nullable: true
+      length: 3
+      fixed: false
+      column: codAutoriza
+    fechahoratx:
+      type: datetime
+      nullable: true
+      column: fechaHoraTx
+    fecharegistro:
+      type: datetime
+      nullable: false
+      default: CURRENT_TIMESTAMP
+      column: fechaRegistro
+  manyToOne:
+    sessiontoken:
+      targetEntity: Sesion
+      cascade: {}
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        sessionToken:
+          referencedColumnName: sessionToken
+      orphanRemoval: false
+  lifecycleCallbacks: {}

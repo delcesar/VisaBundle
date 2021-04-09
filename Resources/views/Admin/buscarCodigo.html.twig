@@ -1,0 +1,45 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <h5 class="h3 semibold m-t-0">Buscar Recibo</h5>
+                <div class="m-t-2">
+                    <div class="card">
+                        <div class="card-content">
+                            <form action="#" id="form-buscar">
+                                <div class="row m-t-1">
+                                    <div class="col u6">
+                                        <div class="input-field">
+                                            <input type="text" name="keyword" id="keyword" class="center-align">
+                                            <label for="keyword" class="">Nombre del cliente o Código</label>
+                                        </div>
+                                    </div>
+                                    <div class="col u6">
+                                        <div class="input-field margintop10">
+                                            <a href="javascript:void(0)" onclick="SubmitAjax('form-buscar', '{{path('delcesar_visa_admin_resultados_busqueda_recibo')}}', 3, 'resultados-busqueda')" class="btn btn-flat light-blue">Buscar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" id="buscar" class="defaultSubmit" value="Buscar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-t-2" id="resultados-busqueda">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#form-buscar').submit(function () {
+                SubmitAjax('form-buscar', '{{path('delcesar_visa_admin_resultados_busqueda_recibo')}}', 3, 'resultados-busqueda');
+                return false;
+            })
+        });
+    </script>
+{% endblock %}

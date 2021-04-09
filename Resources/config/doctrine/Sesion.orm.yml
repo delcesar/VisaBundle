@@ -1,0 +1,31 @@
+Delcesar\VisaBundle\Entity\Sesion:
+  type: entity
+  table: sesion
+  indexes:
+    sesion_idrecibo_idx:
+      columns:
+        - idRecibo
+  id:
+    sessiontoken:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+      id: true
+      column: sessionToken
+  fields:
+    fecharegistro:
+      type: datetime
+      nullable: false
+      column: fechaRegistro
+  manyToOne:
+    idrecibo:
+      targetEntity: Recibo
+      cascade: {}
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        idRecibo:
+          referencedColumnName: idRecibo
+      orphanRemoval: false
+  lifecycleCallbacks: {}

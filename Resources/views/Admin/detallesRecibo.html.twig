@@ -1,0 +1,126 @@
+{% extends "PirwaVisaBundle:Base:base.html.twig" %}
+{% block body %}
+    <div class="p-a-2">
+        <div class="row">
+            <div class="col u12">
+                <div class="row">
+                    <div class="col u8">
+                        <h5 class="h3 m-t-0">
+                            Recibo de Pago - <strong>{{recibo.codigo}}</strong>
+                            {% if recibo.estadoregistro==1 %}
+                                <span class="text-small green-text text-accent-4 m-l-3 light"><i class="mdi-checkbox-marked-circle"></i> vigente</span>
+                            {% else %}
+                                <span class="text-small red-text text-accent-2 m-l-3 light"><i class="mdi-close-circle"></i> cancelado</span>
+                            {% endif %}
+                        </h5>
+                    </div>
+                    <div class="col u4 right-align">
+                        {% if recibo.estadoregistro==1 and recibo.estadopago==0 %}
+                            <a href="{{path('delcesar_visa_admin_editar_recibo',{'idrecibo':recibo.idrecibo})}}" class="btn btn-flat light-blue lighten-2">
+                                <i class="mdi-pencil"></i> editar
+                            </a>
+                            <a href="#" onclick="confirmActionAjax('{{path('delcesar_visa_admin_cancelar_recibo',{'idrecibo':recibo.idrecibo})}}', '¿Seguro que quieres cancelar este recibo?', 'cancelar', 'confirmar', 1, '{{path('delcesar_visa_admin_detalles_recibo',{'idrecibo':recibo.idrecibo})}}')" class="btn btn-flat red accent-2">
+                                <i class="mdi-close-circle"></i> cancelar
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="m-t-2 row flex">
+                    <div class="col u6 flex-item">
+                        <div class="card">
+                            <div class="card-content">
+                                <h6 class="blue-text text-darken-2 semibold m-t-0 m-l-1">DATOS DEL CLIENTE</h6>
+                                <div class="m-t-2">
+                                    <table class="striped">
+                                        <tbody>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td>{{recibo.idcliente.nombre}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>{{recibo.idcliente.email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nacionalidad</td>
+                                                <td>{{recibo.idcliente.nacionalidad.nombre}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Idioma</td>
+                                                <td>{{recibo.idcliente.idioma=="es"?"Español":"Inglés"}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col u6 flex-item">
+                        <div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <h6 class="blue-text text-darken-2 semibold m-t-0 m-l-1">DATOS DEL RECIBO</h6>
+                                    <div class="m-t-2">
+                                        <table class="striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Monto</td>
+                                                    <td>{{recibo.monto|number_format(2)}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha límite de pago</td>
+                                                    <td>{{recibo.fechalimitepago|date('d M Y 23:59')}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Estado de pago</td>
+                                                    <td>
+                                                        {% if recibo.estadopago==1 %}
+                                                            <div class="chip green accent-4 white-text">
+                                                                Pagado
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="chip">
+                                                                Pendiente
+                                                            </div>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha de pago</td>
+                                                    <td>
+                                                        {% if recibo.fechapago is not null %}
+                                                            {{recibo.fechapago|date('d M Y H:i','America/Lima')}}
+                                                        {% else %}
+                                                            --
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card m-t-1">
+                                <div class="card-content">
+                                    <h6 class="blue-text text-darken-2 semibold m-t-0 m-l-1">SERVICIOS</h6>
+                                    <div class="m-t-2">
+                                        <table class="striped">
+                                            <tbody>
+                                                {% for servicio in servicios %}
+                                                    <tr>
+                                                        <th class="center-align">{{loop.index}}</th>
+                                                        <td>{{servicio.nombre}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

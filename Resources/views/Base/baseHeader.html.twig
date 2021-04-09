@@ -1,0 +1,52 @@
+<div class="navbar-fixed">
+    <nav class="blue darken-2" role="navigation">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div id="logo-container">
+                    <a class="brand-logo" href="/cms/administrador/"><img width="100%" alt="Logo" src="/bundles/delcesarpaginaen/img/logo-delcesar-hostels.png"></a>
+                </div>
+                <div class="">
+                    <ul id="area-usuario" class="right m-t-0">
+                        <li class="nav-item">
+                            <a href="#" class="dropdown-button btn btn-flat blue white-text m-a-0" data-activates='dropdown-sesion' data-constrainwidth="false" data-alignment="right" data-beloworigin="true">
+                                <i class="mdi mdi-account"></i>
+                                {{app.session.get('nombreusuariovisa')}}
+                            </a>
+                            <div id='dropdown-sesion' class='dropdown-content dropdown-rt'>
+                                <div class="container-fluid">
+                                    <div class="row p-t-1 p-b-1">
+                                        <div class="col u3">
+                                            <i class="mdi-account-circle mdi-4x indigo-text text-darken-2"></i>
+                                        </div>
+                                        <div class="col u9">
+                                            <div><span class="bold h6 black-text">{{app.session.get('nombreusuariovisa')}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid m-b-1 m-t-1">
+                                    <div class="center">
+                                        <a href="{{path('delcesar_visa_logout')}}" class="btn btn-flat amber darken-4 waves-effect waves-light">
+                                            Cerrar sesión
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="slide-out" class="side-nav fixed list-unstyled blue-grey lighten-5">
+        <ul class="m-a-0">
+            <li class="bold"><a class="waves-effect waves-iwp" href="{{path('delcesar_visa_admin_homepage')}}"><i class="mdi-home mdi-1x m-r-1"></i> Inicio</a></li>
+            <li class="bold"><a class="waves-effect waves-iwp" href="{{path('delcesar_visa_admin_generar_codigo')}}"><i class="mdi-assistant mdi-1x m-r-1"></i> Generar código</a></li>
+            <li class="bold"><a class="waves-effect waves-iwp" href="{{path('delcesar_visa_admin_buscar_recibo')}}"><i class="mdi-magnify mdi-1x m-r-1"></i> Buscar Código</a></li>
+            <li class="bold"><a class="waves-effect waves-iwp" href="{{path('delcesar_visa_admin_buscar_transacciones')}}"><i class="mdi-format-list-bulleted mdi-1x m-r-1"></i> Transacciones</a></li>
+        </ul>
+        <div id="logo-visa" class="center-align">
+            <img width="79px" height="40px" alt="Logo Visa" src="/bundles/delcesarvisa/img/logo-visa-small.png">
+        </div>
+    </div>
+</div>
+

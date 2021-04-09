@@ -1,0 +1,20 @@
+Delcesar\VisaBundle\Entity\Pais:
+  type: entity
+  table: pais
+  id:
+    idpais:
+      type: string
+      nullable: false
+      length: 3
+      fixed: false
+      id: true
+      column: idPais
+      generator:
+        strategy: IDENTITY
+  fields:
+    nombre:
+      type: string
+      nullable: false
+      length: 100
+      fixed: false
+  lifecycleCallbacks: {}

@@ -1,0 +1,43 @@
+Delcesar\VisaBundle\Entity\Cliente:
+    type: entity
+    table: cliente
+    indexes:
+        cliente_nacionalidad_idx:
+            columns:
+                - nacionalidad
+    id:
+        idcliente:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: idCliente
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+        idioma:
+            type: string
+            nullable: false
+            length: 2
+            fixed: false
+    manyToOne:
+        nacionalidad:
+            targetEntity: Pais
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                nacionalidad:
+                    referencedColumnName: idPais
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
